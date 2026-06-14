@@ -128,7 +128,7 @@ export default function Hero() {
 									Available for work
 								</span>
 							</div>
-							<div className="group relative flex items-center">
+							<div className="group relative md:flex items-center hidden">
 								<button
 									type="button"
 									onClick={openTerminal}
