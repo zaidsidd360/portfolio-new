@@ -82,7 +82,7 @@ export default function Building() {
                 </a>
               </div>
               <span className="label" style={{ color: "var(--fg-muted)", paddingTop: "4px", flexShrink: 0 }}>
-                2025 — now
+                Since 2025
               </span>
             </div>
 
@@ -98,7 +98,7 @@ export default function Building() {
               }}
             >
               AI-first Google Business Profile management for agencies. Automates posts, review replies,
-              geo-grid rank tracking, and profile health across all client locations — so agencies stop doing it by hand.
+              geo-grid rank tracking, and profile health across all client locations, so agencies stop doing it by hand.
               Built solo, currently in private beta.
             </p>
 

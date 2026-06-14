@@ -39,7 +39,7 @@ export default function Navbar() {
               {["work", "contact"].map((s) => (
                 <a
                   key={s}
-                  href={`#${s}`}
+                  href={`#${s === "work" ? "experience" : s}`}
                   className="label transition-colors"
                   style={{ color: "var(--fg-muted)" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}

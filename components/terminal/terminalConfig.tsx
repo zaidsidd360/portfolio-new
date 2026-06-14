@@ -139,7 +139,7 @@ function Experience(): ReactElement {
         </div>
       ))}
       <div style={dim}>
-        Full history in the resume — type <span style={{ color: "var(--fg)" }}>resume</span>.
+        Full history is in the resume. Type <span style={{ color: "var(--fg)" }}>resume</span>.
       </div>
     </Block>
   );
@@ -167,7 +167,7 @@ function Contact(): ReactElement {
           </a>
         </div>
       ))}
-      <div style={{ ...dim, marginTop: "6px" }}>Open to full-time roles and interesting projects.</div>
+      <div style={{ ...dim, marginTop: "6px" }}>Open to full-time software engineering roles.</div>
     </Block>
   );
 }
@@ -242,7 +242,7 @@ export const commands = {
 export const directoryStructure = {
   "about.txt": {
     content:
-      "Md Zaid Siddiqui — Software Engineer based in Hyderabad, India. " +
+      "Md Zaid Siddiqui, Software Engineer based in Hyderabad, India. " +
       "2+ years building production systems: AI pipelines, search infrastructure, " +
       "and high-throughput APIs. B.Tech in CSE. Run `whoami` or `experience` for more.",
   },
@@ -254,7 +254,7 @@ export const directoryStructure = {
 export const welcomeMessage = (
   <div style={{ lineHeight: 1.7, paddingBottom: "6px" }}>
     <span style={{ color: "var(--fg)", fontWeight: 500 }}>zaidsh</span>{" "}
-    <span style={dim}>— an interactive shell, built on my own</span>{" "}
+    <span style={dim}>· an interactive shell, built on my own</span>{" "}
     <a
       style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "2px" }}
       href="https://www.npmjs.com/package/@zqui/react-terminal"

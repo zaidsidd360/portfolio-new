@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import EasterEgg from "@/components/EasterEgg";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
 import Building from "@/components/sections/Building";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Experience />
         <Building />
         <Projects />
         <TechStack />

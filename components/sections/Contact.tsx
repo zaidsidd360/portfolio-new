@@ -35,7 +35,7 @@ export default function Contact() {
               className="contact-reveal mb-8"
               style={{ fontSize: "clamp(17px,2.2vw,20px)", fontWeight: 300, lineHeight: "1.6", color: "var(--fg-muted)" }}
             >
-              Open to full-time roles and interesting projects.
+              Open to full-time software engineering roles.
             </p>
 
             <div className="contact-reveal flex flex-col gap-3">

@@ -3,7 +3,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zaidsiddiqui.dev";
-const title = "Md Zaid Siddiqui — Software Engineer";
+const title = "Md Zaid Siddiqui · Software Engineer";
 const description =
   "Md Zaid Siddiqui is a software engineer building APIs, search infrastructure, and AI pipelines at scale. Currently at Vujis and building Discovry.";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: title,
-    template: "%s — Zaid Siddiqui",
+    template: "%s · Zaid Siddiqui",
   },
   description,
   applicationName: "Zaid Siddiqui",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Md Zaid Siddiqui — Software Engineer",
+        alt: "Md Zaid Siddiqui · Software Engineer",
       },
     ],
   },

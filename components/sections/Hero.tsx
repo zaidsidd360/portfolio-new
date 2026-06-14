@@ -175,7 +175,7 @@ export default function Hero() {
 						{/* CTAs */}
 						<div className="hero-sub flex flex-wrap items-center gap-4">
 							<a
-								href="#work"
+								href="#experience"
 								className="inline-flex items-center gap-2 rounded-full bg-fg px-[22px] py-2.5 text-[13px] font-medium text-bg no-underline transition-opacity hover:opacity-75"
 							>
 								See my work

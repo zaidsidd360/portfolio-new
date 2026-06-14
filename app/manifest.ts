@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Md Zaid Siddiqui — Software Engineer",
+    name: "Md Zaid Siddiqui · Software Engineer",
     short_name: "Zaid Siddiqui",
     description:
       "Software engineer building APIs, search infrastructure, and AI pipelines at scale.",

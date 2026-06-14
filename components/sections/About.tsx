@@ -35,7 +35,7 @@ export default function About() {
               className="about-reveal"
               style={{ fontSize: "clamp(17px,2.2vw,20px)", fontWeight: 300, lineHeight: "1.65", color: "var(--fg)" }}
             >
-              Software engineer with 2+ years building production systems — AI pipelines, search infrastructure,
+              Software engineer with 2+ years building production systems: AI pipelines, search infrastructure,
               high-throughput APIs. I obsess over the numbers: latency, throughput, storage. If it can be faster, I want to know why it isn&apos;t.
             </p>
             <p
