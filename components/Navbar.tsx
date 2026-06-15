@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import GooglyEyes from "./GooglyEyes";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -26,8 +29,17 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              if (pathname === "/") {
+                // Already home: just scroll up, no navigation.
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                // Elsewhere: client-side navigate home.
+                router.push("/");
+              }
+            }}
             className="font-mono text-xl"
             style={{ color: "var(--fg)" }}
           >
@@ -36,16 +48,17 @@ export default function Navbar() {
 
           <div className="flex items-center gap-5">
             <nav className="flex items-center gap-6">
-              {["work", "contact"].map((s) => (
+              {[
+                { label: "work", href: "/#experience" },
+                { label: "blog", href: "/blog" },
+                { label: "contact", href: "/#contact" },
+              ].map((item) => (
                 <a
-                  key={s}
-                  href={`#${s === "work" ? "experience" : s}`}
-                  className="label transition-colors"
-                  style={{ color: "var(--fg-muted)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
+                  key={item.label}
+                  href={item.href}
+                  className="label transition-colors hover:text-fg"
                 >
-                  {s}
+                  {item.label}
                 </a>
               ))}
             </nav>

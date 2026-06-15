@@ -63,9 +63,10 @@ export default function GooglyEyes() {
 
   return (
     <a
-      href="#"
-      onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-      aria-label="Go to top"
+      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="googly eyes"
       style={{ display: "flex", alignItems: "center", gap: "4px", textDecoration: "none" }}
     >
       <div ref={eye1Ref} style={EyeStyle}>

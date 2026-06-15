@@ -1,0 +1,121 @@
+---
+title: "I was aggregating in Node. OpenSearch did it 72% faster."
+description: "I was pulling raw rows out of OpenSearch and computing facet counts in Node. Moving that work into the engine with terms aggregations cut average query time by 72%."
+date: "2026-05-23"
+slug: "optimizing-opensearch-query-performance"
+tags: ["OpenSearch", "Search Infrastructure", "Performance", "Elasticsearch", "Backend"]
+author: "Md Zaid Siddiqui"
+canonical: "https://zaidsiddiqui.dev/blog/optimizing-opensearch-query-performance"
+---
+
+The search API I worked on at Vujis backed a heavily faceted UI. You search, you get a page of results, and down the left side there's a sidebar: every filter value with a live count next to it. "Category: Electronics (1,240). Region: APAC (980)." Toggle a filter and every count updates to reflect the new query.
+
+On a 100k+ document index, that endpoint took about 1.8 seconds. By the end it averaged around 500ms, a 72% drop, on the same cluster. The single biggest reason was embarrassingly simple, and I'll just say it up front: I was doing the counting in the wrong place.
+
+## The naive version: aggregate in the app
+
+When I first built it, the flow looked reasonable. Query OpenSearch for the matching documents, get the rows back, then loop over them in Node to tally up the facet counts:
+
+```js
+// The slow way: count in application code
+const counts = {};
+for (const row of rows) {
+  counts[row.category] = (counts[row.category] || 0) + 1;
+}
+```
+
+The bug in this thinking isn't the loop. It's that the sidebar counts have to reflect *every* matching document, not just the ones on the current page. So to count correctly, I had to fetch every match before I could tally it.
+
+A query that matched 40,000 documents meant pulling 40,000 documents across the wire, into a single Node process, just to produce a dozen numbers for a sidebar. The actual search was fast. The data transfer and the single-threaded reduce were what dragged the response out toward two seconds, and it got worse the broader the query, which is exactly when users lean on facets the most.
+
+## The fix: let OpenSearch count
+
+OpenSearch already has the right tool for this, and I'd been walking past it. The `terms` aggregation buckets a field's distinct values and counts them at the shard level, in parallel, sitting right next to the data. It hands back only the buckets. You never fetch the documents to count them.
+
+The same facets become part of the query:
+
+```js
+const body = {
+  size: 25, // just the page of results
+  query: {
+    bool: {
+      must:   [{ match: { title: searchText } }],
+      filter: [
+        { term: { region: "apac" } },
+        { range: { price: { gte: 50, lte: 200 } } },
+      ],
+    },
+  },
+  aggs: {
+    by_category: { terms: { field: "category", size: 20 } },
+    by_brand:    { terms: { field: "brand", size: 20 } },
+  },
+};
+```
+
+The response carries a `by_category` block with each value and its `doc_count`, computed over the full result set, not just the returned page. Node's job shrinks to forwarding those buckets to the client. If a screen only needs counts and no rows, you set `size: 0` and OpenSearch skips the fetch phase entirely.
+
+That one change did most of the 1.8s to 500ms work. The lesson behind it is the one I keep coming back to: don't move data to your compute, move compute to the data. A search engine is built to aggregate across millions of documents. A `for` loop in your API process is not.
+
+## Making the aggregations actually cheap
+
+Moving the work into OpenSearch is most of the battle, but a terms aggregation can still be lazy if you let it. Two things mattered.
+
+First, facet fields should be `keyword`, not analyzed `text`, and they should keep `doc_values` (the default for keyword). Aggregations run on doc values, so a field you only ever filter and facet on has no business being analyzed.
+
+Second, high-cardinality facets benefit from building their dictionaries off the hot path:
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "category": { "type": "keyword", "eager_global_ordinals": true },
+      "brand":    { "type": "keyword", "eager_global_ordinals": true }
+    }
+  }
+}
+```
+
+A terms aggregation builds *global ordinals*, an internal map of every unique value in the field. By default it builds them lazily, on the first query after each refresh, while the user waits. `eager_global_ordinals: true` moves that to refresh time. You pay a little on indexing so the facet query doesn't stall on the request path.
+
+It also matters *where* you put the structured filters. Anything that's a yes/no constraint (a region, a date range, a status) belongs in `filter`, not `must`. The `filter` clause skips relevance scoring and is cacheable, so the repeated filter combinations a faceted UI generates come back from cache. Only the actual text match needs to live in `must` and compute a score.
+
+## Paginating past the easy cases
+
+Two more things came out of the same endpoint, both about not loading documents you don't need.
+
+Normal pagination used `from` and `size`, which is fine for the first handful of pages and quietly capped: by default OpenSearch refuses to page past 10,000 results, and deep offsets get expensive because every shard collects `from + size` hits just to discard most of them. For large exports that legitimately needed to walk the whole result set, I switched to `search_after`, which uses the sort values of the last row as a cursor:
+
+```js
+const body = {
+  size: 1000,
+  sort: [{ date: "desc" }, { _seq_no: "asc" }], // unique tiebreaker
+  search_after: lastSortValues, // from the previous batch
+  query,
+};
+```
+
+The tiebreaker is the part people miss. You need a unique, stable secondary sort key so the cursor is deterministic and never skips or repeats a row across batches.
+
+And when an export only needed to walk cursors without actually reading documents (counting, or pre-seeking to a position), I told OpenSearch to skip loading them at all:
+
+```js
+const body = {
+  size: 1000,
+  _source: false,
+  stored_fields: [],
+  sort,
+  search_after,
+  query,
+};
+```
+
+With `_source: false` and no stored fields, the response carries the sort values and nothing else. No source loading, no decompression, a fraction of the payload.
+
+## What I'd take away
+
+The headline number is 1.8s to 500ms, a 72% reduction, with no new hardware. But the useful part isn't the number, it's the pattern under it: most of the slowness was work I'd asked the application to do that the engine was built to do better.
+
+Count where the data lives. Keep facet fields lean and build their dictionaries early. Filter in filter context so the cache can help you. Page with a cursor, and don't load documents you're only going to count. None of it is exotic, and all of it compounds.
+
+I'm Zaid, a software engineer working on search infrastructure and AI pipelines. If you're untangling a slow index, I'm always happy to compare notes. More of what I'm building is at [zaidsiddiqui.dev](https://zaidsiddiqui.dev).

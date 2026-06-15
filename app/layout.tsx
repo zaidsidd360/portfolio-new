@@ -39,6 +39,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  // og:image / twitter:image come from the dynamic app/opengraph-image.tsx
+  // and app/twitter-image.tsx routes.
   openGraph: {
     type: "website",
     url: siteUrl,
@@ -46,21 +48,12 @@ export const metadata: Metadata = {
     title,
     description,
     locale: "en_US",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Md Zaid Siddiqui · Software Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
     creator: "@zaidsidd360",
-    images: ["/og.png"],
   },
   icons: {
     icon: [

@@ -1,0 +1,53 @@
+---
+title: "Agents are the future. The model is the easy part."
+description: "Everyone says they're building AI agents. Few have shipped one. After building agentic features into Discovry, here's why I'm convinced this is the direction, and why the hard part isn't the model."
+date: "2026-06-15"
+slug: "ai-agents-the-model-is-the-easy-part"
+tags: ["AI Agents", "Agentic Systems", "LLMs", "Engineering"]
+author: "Md Zaid Siddiqui"
+canonical: "https://zaidsiddiqui.dev/blog/ai-agents-the-model-is-the-easy-part"
+---
+
+If you read the headlines, every company on earth runs on AI agents now. If you read the production data, almost none do. The surveys this year keep landing on the same gap: a large majority of teams say they're "adopting agentic AI," and only a sliver have anything in production beyond a chatbot with a long system prompt. Companies are chasing. Few are catching.
+
+I've spent the last while on the catching side of that gap, building agentic features into [Discovry](https://discovry.app), and I want to make two claims that sound contradictory but aren't. First, this is genuinely the future, and not in a vague way. Second, the model is the easy part, and almost everything that matters is the boring engineering around it.
+
+## What "agentic" actually changes
+
+Most software shows you things and waits. You open a dashboard, you read the numbers, you decide, you click. An agent collapses that loop. It reads the same numbers, decides, and takes the action on your behalf, then tells you what it did.
+
+Discovry is a narrow, concrete version of this. It doesn't just surface the state of a business profile, it drafts the post, writes the reply to the review, tracks where you rank across a geo-grid, and flags the profile that quietly went sideways. The work that used to be a person opening twenty tabs becomes a thing that just happens, with a human glancing at the result instead of producing it.
+
+Once you have built even one workflow that genuinely does the job rather than assisting with it, going back feels absurd. That is the shift, and it is already real in narrow forms. The reason it doesn't feel real yet at large is not the vision. It's the reliability.
+
+## The model is a day. Reliability is everything else.
+
+Dropping a frontier model into a feature is the easy part, almost embarrassingly so. You wire up an API call, write a decent prompt, and the demo works on the first try. That demo is what fills the headlines and the launch videos.
+
+The other ninety-five percent is making it reliable enough to act without someone watching. And this is where the published numbers get honest. Models that score above ninety percent on single-turn benchmarks fall off a cliff on multi-turn, long-horizon tasks, the exact shape of real work. Study after study this year traces the majority of agent failures not to the model being incapable, but to context: the agent lost the thread, forgot a constraint, or was handed the wrong information three steps back.
+
+That reframes the whole problem. The bottleneck usually isn't intelligence. It's everything you did or didn't put in front of the intelligence.
+
+## What actually makes an agent work
+
+A few things have mattered far more than picking the smartest model.
+
+**Narrow the scope until it's almost boring.** A general autonomous agent that can "do anything" is a demo. A narrow agent that does one workflow with a clear definition of success is a product. Discovry isn't "an AI that runs your marketing." It's a specific set of jobs, each with a checkable outcome. The narrower the job, the easier it is to make it trustworthy, and trustworthy is the only version that ships.
+
+**Context engineering is the actual work.** The model can only act on what reaches it at inference time. Most of the real engineering is deciding what to retrieve, what to summarize, what to drop, and what to pass through untouched. The lesson the whole field converged on this year is that context quality, not context volume, is the limit. Stuffing the window is not the same as helping the model.
+
+**Keep the deterministic parts deterministic.** The most common mistake I see is asking a model to do what a plain function should. The model should handle judgment: tone, classification, drafting, deciding which case this is. Everything around that should be ordinary code with ordinary guarantees. A good agent is a small amount of model judgment wrapped in a lot of normal software.
+
+**You cannot ship what you cannot measure.** Without evals you don't know if a prompt change helped or quietly broke three other cases. Without observability you can't see why the agent did something strange in production. It's telling that teams are adopting observability faster than evals right now, because the moment an agent acts on its own, "it seemed fine when I tested it" stops being good enough.
+
+**Design for being wrong.** It will be wrong. The question is whether being wrong is cheap or catastrophic. High-stakes actions get a human in the loop. Everything gets guardrails and a way to undo. Trust isn't built by an agent that's always right. It's built by one that fails in small, visible, recoverable ways.
+
+## Why this makes me optimistic
+
+Here's the part that turns a reliability problem into a reason to bet on it: every one of those hard parts is software engineering. Scoping a problem, deciding what data matters, drawing the line between judgment and logic, instrumenting a system, designing for failure. None of that is a magic prompt. It's the craft engineers already have.
+
+The hype cycle rewards whoever has the best demo. The next few years reward whoever does the unglamorous work of making the demo dependable. That's a much better game to be in, because it can't be faked with a clever screenshot, and it compounds.
+
+So yes, agents are the future. Not because the models will suddenly become flawless, but because the systems around them are getting good enough to absorb the flaws. The teams that win won't be the ones with access to a smarter model. Everyone has that. They'll be the ones who did the engineering.
+
+That's the bet I'm making with Discovry, one narrow, reliable workflow at a time. If you're building in this space, I'd love to compare notes: [zaidsiddiqui.dev](https://zaidsiddiqui.dev).

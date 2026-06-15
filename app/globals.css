@@ -139,3 +139,97 @@
 .terminal-enter {
   animation: terminalEnter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* ============================ Blog prose ============================ */
+.blog-prose {
+  max-width: 680px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--fg-muted);
+}
+.blog-prose > * + * { margin-top: 1.25em; }
+.blog-prose h2 {
+  margin-top: 2.2em;
+  margin-bottom: 0.2em;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  scroll-margin-top: 6rem;
+}
+.blog-prose h3 {
+  margin-top: 1.8em;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fg);
+  scroll-margin-top: 6rem;
+}
+.blog-prose p { color: var(--fg-muted); }
+.blog-prose strong { color: var(--fg); font-weight: 600; }
+.blog-prose a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.15s;
+}
+.blog-prose a:hover { text-decoration-color: var(--fg); }
+.blog-prose ul, .blog-prose ol { padding-left: 1.25em; }
+.blog-prose ul { list-style: none; }
+.blog-prose ul > li { position: relative; }
+.blog-prose ul > li::before {
+  content: "›";
+  position: absolute;
+  left: -1.1em;
+  color: var(--fg);
+}
+.blog-prose ol { list-style: decimal; }
+.blog-prose li { margin-top: 0.4em; color: var(--fg-muted); }
+.blog-prose blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 1em;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+.blog-prose hr { border: 0; border-top: 1px solid var(--border); margin: 2.5em 0; }
+
+/* Inline code */
+.blog-prose :not(pre) > code {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.1em 0.4em;
+  color: var(--fg);
+}
+
+/* Code blocks */
+.blog-prose pre {
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.blog-prose pre code {
+  font-family: "Ubuntu Mono", monospace;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--fg);
+}
+
+/* highlight.js token theme (terminal-mono palette, theme-aware) */
+.hljs-comment, .hljs-quote { color: var(--fg-muted); font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-name, .hljs-tag { color: #c084fc; }
+.hljs-string, .hljs-attr, .hljs-template-tag, .hljs-addition { color: #34d399; }
+.hljs-number, .hljs-literal, .hljs-variable, .hljs-meta { color: #38bdf8; }
+.hljs-title, .hljs-section, .hljs-function .hljs-title { color: #f0f0ed; }
+.dark .hljs-title, .dark .hljs-section { color: #f0f0ed; }
+:root .hljs-title, :root .hljs-section { color: #0a0a0a; }
+.hljs-attribute, .hljs-property { color: #fbbf24; }
+.hljs-symbol, .hljs-bullet, .hljs-link { color: #f472b6; }
+.hljs-deletion { color: #f87171; }
