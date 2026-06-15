@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import GooglyEyes from "./GooglyEyes";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -28,23 +28,21 @@ export default function Navbar() {
       <div className="container">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <a
+          <Link
             href="/"
             onClick={(e) => {
-              e.preventDefault();
+              // On home, don't navigate, just scroll to top. Elsewhere, let
+              // Link handle client-side navigation home.
               if (pathname === "/") {
-                // Already home: just scroll up, no navigation.
+                e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                // Elsewhere: client-side navigate home.
-                router.push("/");
               }
             }}
             className="font-mono text-xl"
             style={{ color: "var(--fg)" }}
           >
             ZS
-          </a>
+          </Link>
 
           <div className="flex items-center gap-5">
             <nav className="flex items-center gap-6">
@@ -53,13 +51,13 @@ export default function Navbar() {
                 { label: "blog", href: "/blog" },
                 { label: "contact", href: "/#contact" },
               ].map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className="label transition-colors hover:text-fg"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
             <div className="hidden sm:flex">
