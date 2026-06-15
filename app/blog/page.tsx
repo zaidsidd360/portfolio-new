@@ -34,12 +34,10 @@ export default function BlogIndex() {
       <Navbar />
       <main className="min-h-screen pt-32 pb-24">
         <div className="container">
-          <h1 className="text-[clamp(32px,6vw,52px)] font-bold tracking-[-0.03em] text-fg">
-            Blog
+          <span className="label">Blog</span>
+          <h1 className="mb-12 mt-3 max-w-[760px] text-[clamp(30px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.03em] text-fg">
+            Notes on what I build, and what breaks along the way.
           </h1>
-          <p className="mt-3 mb-12 max-w-[560px] text-[15px] font-light leading-[1.6] text-fg-muted">
-            Notes on search infrastructure, performance, and the things I build.
-          </p>
 
           {posts.length === 0 ? (
             <p className="text-fg-muted">Nothing published yet. Soon.</p>

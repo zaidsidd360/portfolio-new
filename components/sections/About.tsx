@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -60,6 +62,17 @@ export default function About() {
               </a>{" "}
               on the side. B.Tech in Computer Science and Engineering.
             </p>
+            <Link
+              href="/about"
+              className="about-reveal group inline-flex items-center gap-1.5 pt-1 text-[13px] text-fg-muted transition-colors hover:text-fg"
+            >
+              More about me
+              <ArrowRight
+                size={14}
+                strokeWidth={1.5}
+                className="transition-transform group-hover:translate-x-0.5"
+              />
+            </Link>
           </div>
         </div>
       </div>
