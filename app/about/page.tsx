@@ -93,18 +93,11 @@ export default function About() {
 
             <Row label="Outside the editor">
               <p className={prose}>
-                When I&apos;m not building, I&apos;m usually drawn to the same things in
-                different forms: astronomy, design, and open source. I maintain{" "}
-                <a
-                  href="https://www.npmjs.com/package/@zqui/react-terminal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link"
-                >
-                  react-terminal
-                </a>
-                , a small Bash-like terminal component for React. The one running on the
-                home page is my own library. Tinkering in public is half the fun.
+                Off the clock I&apos;m a serious believer in <span className={strong}>good food</span>, a{" "}
+                <span className={strong}>Breaking Bad</span> rewatch on principle, and{" "}
+                <span className={strong}>The Office</span> playing in the background for
+                roughly the n<sup>th</sup> time. Equal parts type-safety, clean
+                abstractions, and dark mode.
               </p>
             </Row>
 

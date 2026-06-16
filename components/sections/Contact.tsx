@@ -43,6 +43,7 @@ export default function Contact() {
                 { label: "Email", value: "zaidsidd360@gmail.com", href: "mailto:zaidsidd360@gmail.com" },
                 { label: "LinkedIn", value: "linkedin.com/in/zaidsidd360", href: "https://linkedin.com/in/zaidsidd360" },
                 { label: "GitHub", value: "github.com/zaidsidd360", href: "https://github.com/zaidsidd360" },
+                { label: "Resume", value: "download (PDF)", href: "/MdZaidSiddiquiResume.pdf" },
               ].map(({ label, value, href }) => (
                 <div key={label} className="flex items-baseline gap-6">
                   <span className="label w-16 shrink-0">{label}</span>

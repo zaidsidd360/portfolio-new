@@ -131,6 +131,16 @@
   .gsap-init { opacity: 1; transform: none; }
 }
 
+/* 404 astronaut gentle float */
+@keyframes astroFloat {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-16px) rotate(1.5deg); }
+}
+.astro-float {
+  animation: astroFloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Hero terminal swap-in */
 @keyframes terminalEnter {
   from { opacity: 0; transform: translateY(8px) scale(0.995); }

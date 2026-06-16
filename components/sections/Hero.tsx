@@ -135,7 +135,7 @@ export default function Hero() {
 									aria-label="Open interactive terminal"
 									className="cursor-pointer text-fg-muted transition-colors hover:text-fg"
 								>
-									<SquareTerminal className="animate-pulse" size={20} strokeWidth={1.5} />
+									<SquareTerminal className="animate-bounce" size={20} strokeWidth={1.5} />
 								</button>
 								{/* Shortcut hint on hover */}
 								<span className="pointer-events-none absolute right-0 top-full z-10 mt-2 flex items-center gap-1 whitespace-nowrap rounded-md border border-line bg-bg px-2 py-1 font-mono text-[11px] text-fg-muted opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100">
