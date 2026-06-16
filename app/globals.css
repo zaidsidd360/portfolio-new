@@ -8,16 +8,16 @@
   :root {
     --bg: #f9f9f7;
     --fg: #0a0a0a;
-    --fg-muted: #888888;
-    --border: #e0e0db;
+    --fg-muted: #595959;
+    --border: #d4d4cf;
     --surface: #f0f0ed;
   }
 
   .dark {
     --bg: #0a0a0a;
     --fg: #f0f0ed;
-    --fg-muted: #666666;
-    --border: #1e1e1e;
+    --fg-muted: #969696;
+    --border: #2a2a2a;
     --surface: #111111;
   }
 

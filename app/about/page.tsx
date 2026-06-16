@@ -115,7 +115,7 @@ export default function About() {
                   { k: "GitHub", v: "github.com/zaidsidd360", href: "https://github.com/zaidsidd360" },
                   { k: "LinkedIn", v: "linkedin.com/in/zaidsidd360", href: "https://linkedin.com/in/zaidsidd360" },
                   { k: "X", v: "x.com/zaidsidd360", href: "https://x.com/zaidsidd360" },
-                  { k: "Resume", v: "download (PDF)", href: "/Zaid_Siddiqui_Resume.pdf" },
+                  { k: "Resume", v: "download (PDF)", href: "/MdZaidSiddiquiResume.pdf" },
                 ].map(({ k, v, href }) => (
                   <div key={k} className="flex items-baseline gap-6">
                     <span className="label w-16 shrink-0">{k}</span>
