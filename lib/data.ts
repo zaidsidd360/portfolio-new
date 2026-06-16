@@ -16,7 +16,10 @@ export interface Experience {
   location: string;
   period: string;
   current: boolean;
-  bullets: string[];
+  owned: string;
+  built: string[];
+  problems: string[];
+  writeup?: { slug: string; label: string };
   tags: string[];
 }
 
@@ -24,42 +27,65 @@ export const EXPERIENCE: Experience[] = [
   {
     role: "Software Engineer",
     company: "Vujis",
-    location: "Hyderabad, TG",
+    location: "Hyderabad",
     period: "Mar 2025 – Present",
     current: true,
-    bullets: [
-      "Leading integration of OpenAI APIs to build custom AI pipelines processing 50k+ records daily, reducing manual data analysis time by 60% and automating insight extraction across 4+ dataset categories.",
-      "Architected and integrated OpenSearch across 3+ core modules (full-text search, faceted filtering, index mapping optimizations), reducing average query time by 72% (1.8s → 500ms) for 100k+ indexed documents.",
-      "Optimized 8+ critical Node.js APIs by refactoring middlewares and efficient pagination, reducing average endpoint latency by 64% (2.5s → 910ms) and boosting throughput 10× (2k → 20k rows).",
-      "Delivered an S3 image compression pipeline using Node.js and cWebP, processing 1,400+ product images, cutting storage 95.6% (2.05 GB → 91.6 MB) and load times 71% (2.75s → 800ms).",
+    owned:
+      "Search and AI across the core platform: the OpenSearch layer behind faceted discovery, the OpenAI pipelines that turn raw records into insight, and the high-traffic APIs holding it together under real production load.",
+    built: [
+      "A search layer over 100k+ documents with full-text search, faceted filtering, and index mappings tuned so the engine does the work it was built for. Average query time went from 1.8s to around 500ms.",
+      "AI pipelines on top of the OpenAI APIs that chew through 50k+ records a day, pulling structured insight out of messy data across several categories and erasing analysis work that used to eat afternoons.",
+      "A pass over the hottest Node.js endpoints (smarter middleware, cursor pagination, less wasted work) that cut tail latency by about two-thirds and let throughput scale roughly 10x.",
+      "An image pipeline that compresses with cWebP before anything touches S3, shrinking a 2GB pile of product images by ~95% and making pages load noticeably faster.",
     ],
-    tags: ["OpenAI", "OpenSearch", "Node.js", "AWS S3", "TypeScript"],
+    problems: [
+      "I was computing facet counts in Node by pulling every matching row back and tallying them by hand. The fix was equal parts embarrassing and satisfying: OpenSearch aggregations do that at the shard level, right next to the data. Moving the counting into the engine was most of the latency win.",
+      "Deep pagination quietly caps at 10k results, and asking for page 500 makes every shard collect 5,000 rows just to throw them away. A search_after cursor with a stable tiebreaker made page 500 cost the same as page 2.",
+      "Designing a schema loose enough to absorb new data categories as they appear, but tight enough that downstream pipelines don't break every time something new ships.",
+    ],
+    writeup: {
+      slug: "optimizing-opensearch-query-performance",
+      label: "Read the full writeup",
+    },
+    tags: ["OpenSearch", "OpenAI", "Node.js", "TypeScript", "AWS S3"],
   },
   {
     role: "Full Stack Developer",
     company: "Scallio Digital",
-    location: "Kolkata, WB",
+    location: "Kolkata",
     period: "Aug 2024 – Feb 2025",
     current: false,
-    bullets: [
-      "Architected a lead nurturing platform serving 5k+ active users with React.js and Shadcn UI, leveraging Zustand for state management to cut render cycles by 20% across 40+ components.",
-      "Developed 20+ scalable RESTful endpoints with Node.js + Express.js, deployed on AWS with CI/CD pipelines achieving 99.9% uptime and cutting deployment time by 50%.",
-      "Implemented input debouncing and server-side pagination for 30k+ records across 8 data-heavy views, improving perceived load times by 25% while maintaining real-time CRM synchronization.",
+    owned:
+      "The front-to-back of a lead-nurturing platform used by 5k+ people daily: the React app they lived in, the REST APIs behind it, and the AWS pipeline that shipped it.",
+    built: [
+      "A React and Shadcn UI front end with Zustand for state, restructured so 40+ components stopped re-rendering when they had no reason to (render cycles down ~20%).",
+      "20+ REST endpoints on Node and Express, deployed to AWS with CI/CD that held 99.9% uptime and halved deploy time.",
+      "Debounced inputs and server-side pagination across 8 data-heavy views holding 30k+ records, so the UI stayed responsive while the CRM synced in real time.",
     ],
-    tags: ["React.js", "Node.js", "Zustand", "AWS", "Express.js", "Shadcn UI"],
+    problems: [
+      "Keeping a data-heavy CRM interface snappy when every keystroke could fire a request. The craft was in deciding what to debounce, what to paginate on the server, and what should simply never re-render.",
+      "Real-time sync where the client and the source of truth could quietly drift, and the user should never see the seam.",
+    ],
+    tags: ["React.js", "Node.js", "Express", "Zustand", "Shadcn UI", "AWS"],
   },
   {
     role: "Software Developer",
     company: "Mocero Health Solutions",
-    location: "Chennai, TN",
+    location: "Chennai",
     period: "Dec 2023 – Jul 2024",
     current: false,
-    bullets: [
-      "Spearheaded development of a Notion-like markdown WYSIWYG editor with React.js + Redux Toolkit, used by 200+ internal users, resolving 17+ critical bugs and reducing crash rate by 65%.",
-      "Implemented scalable file storage with AWS S3 handling 1k+ daily uploads using Node.js, with secure pre-signed URL workflows that cut upload latency by 30%.",
-      "Optimized 27+ components using Context API and React.memo, reducing unnecessary re-renders by 40% and cutting page load time by 800ms.",
+    owned:
+      "Core front-end work on internal tools used by 200+ people, including a Notion-style markdown editor and the file infrastructure underneath it.",
+    built: [
+      "A Notion-like WYSIWYG markdown editor in React and Redux Toolkit, the kind of surface where every edge case is a fresh bug. Closed out 17+ critical ones and cut the crash rate by ~65%.",
+      "S3-backed file storage handling 1k+ uploads a day through secure pre-signed URLs, with upload latency down ~30%.",
+      "A re-render audit across 27+ components with Context API and React.memo, taking unnecessary renders down 40% and shaving ~800ms off page load.",
     ],
-    tags: ["React.js", "Redux Toolkit", "AWS S3", "Node.js", "Context API"],
+    problems: [
+      "WYSIWYG editors are deceptively brutal: selection, paste, undo, and nested formatting all conspire against you. Most of the work was taming the edge cases that only appear once real people start typing.",
+      "Cutting re-renders without rewriting everything, which meant finding the few components actually causing the cascade instead of reflexively memoizing the whole tree.",
+    ],
+    tags: ["React.js", "Redux Toolkit", "Node.js", "AWS S3", "Context API"],
   },
 ];
 
