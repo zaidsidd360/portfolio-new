@@ -1,0 +1,49 @@
+---
+title: "SHA-1 has been dead for years. You're probably still using it."
+description: "In 2017 a team made two different PDFs with the same SHA-1 hash, which is supposed to be impossible. But the headline gets the story backwards: that wasn't the death of SHA-1. It was the funeral, and the body still isn't buried."
+date: "2026-06-15"
+slug: "the-slow-death-of-sha-1"
+tags: ["Cryptography", "Hash Functions", "SHA-1", "Security", "Engineering"]
+author: "Md Zaid Siddiqui"
+canonical: "https://zaidsiddiqui.dev/blog/the-slow-death-of-sha-1"
+---
+
+In February 2017, researchers at CWI Amsterdam and Google published two PDF files. Open them side by side and they're plainly different documents. Run both through SHA-1, the hash function that at the time still guarded TLS certificates, software signatures, and git, and you get the identical fingerprint: `38762cf7f55934b34d179ae6a4c80cadccbb7f0a`. Two different files, one hash. That is the one thing a hash function is built to never allow.
+
+The project was called SHAttered, and almost every write-up framed it the same way: the day SHA-1 died. That framing is backwards, and the backwards version is the interesting one. SHA-1 didn't die in 2017. It had been visibly dying for over a decade, the whole industry watched it happen, and the most uncomfortable part is that the body still isn't buried. There's a decent chance you depend on SHA-1 right now without knowing it.
+
+## The one promise that broke
+
+A hash takes any input and returns a short fixed-length fingerprint. The property that matters here is *collision resistance*: it should be practically impossible to find two different inputs that produce the same output. That's what makes the everyday trust check work. A publisher posts the official hash of a download; your machine hashes its copy and compares. If an attacker can forge a different file with the same hash, that check becomes theater.
+
+Collisions aren't impossible in principle, only in practice. SHA-1's 160-bit output has about 1.46 quintillion possible values and the universe of possible inputs is effectively infinite, so collisions *have* to exist. The bet was that finding one would take roughly 2^80 attempts, which at any realistic speed means the sun burns out first. "You'll never find one" was a fair approximation of "you'd need longer than the age of the universe."
+
+SHAttered found one anyway, because the team didn't search blindly. They used the structure of the algorithm to engineer two inputs whose internal differences cancelled out by the end, landing on the same hash. It cost something like nine quintillion SHA-1 computations and a six-figure cloud bill. But the number that mattered wasn't the price. It was the ratio: their attack was on the order of 100,000 times faster than brute force (2^63 work instead of 2^80). And shortcuts like that never get more expensive over time. They get cheaper every year while the algorithm doesn't change a line.
+
+## A death in slow motion
+
+Here's the timeline the "SHA-1 died in 2017" headline erases.
+
+The first crack was **2005**, when Xiaoyun Wang and collaborators published a theoretical attack dropping SHA-1's collision strength from 2^80 to around 2^63. Nobody could run it yet, but the math was public, and public math only gets faster. Bruce Schneier called SHA-1 broken on the spot. In **2011, NIST formally deprecated it** for digital signatures. In **2014, Google announced Chrome would start distrusting SHA-1 certificates**, wiring escalating warnings into the browser. In **2015**, a team demonstrated a "freestart" collision on SHA-1's internals, the last warning shot before the real thing.
+
+So by the time SHAttered actually landed in 2017, the genuinely surprising part was that anyone was still surprised. And it kept getting worse: in **2020**, "SHA-1 is a Shambles" demonstrated a far more dangerous *chosen-prefix* collision for roughly $45,000 in rented GPUs, and used it to forge a pair of PGP keys with colliding certificates. The cost of breaking SHA-1 had more than halved in three years. None of this was a sudden death. It was a twelve-year decline that everyone with a security background saw coming.
+
+## So why is it still here?
+
+If it's been provably broken for years, why did I say you might still depend on it? Because retiring an algorithm is a code change, and *finishing the migration* is an organizational problem. Those are wildly different difficulties.
+
+On the public web, the cleanup mostly worked, because browser vendors could force it. A scary red warning between a site and its users is a language product teams understand, so SHA-1 certificates got phased out fast. Everything below the browser is where it gets stuck. It's never one function call; it's every certificate ever issued, every embedded device with a hash baked into firmware, every industrial controller and point-of-sale box running code nobody can find the source for anymore, with the dependency buried in a config file last touched by someone who left years ago.
+
+The big names show the pace. **Microsoft** didn't move Windows Update signing fully to SHA-2 until 2019, and didn't retire its last SHA-1-signed content until 2020. Windows 7 machines that never took the SHA-2 patch simply stopped getting security updates, because they couldn't verify the newer signatures. And **git** is the messiest case of all: it used SHA-1 as the identifier for every commit, file, and tag, so a collision there theoretically lets you swap malicious content into a repo without breaking the chain that's supposed to prevent exactly that. GitHub bolted on collision detection within weeks of SHAttered. Git's actual move to SHA-256 has been in progress for years and still isn't done. MD5, the algorithm *before* SHA-1, started falling apart in the early 2000s and is still quietly hashing things in forgotten corners today.
+
+## The part worth keeping
+
+The fix on paper is one line: use SHA-256. It's part of the SHA-2 family, no practical break is anywhere close, and for a new project it really is trivial. The hard version is the dead weight of everything already shipped.
+
+The lesson I take from the whole saga isn't about one hash function. It's that **cryptographic algorithms have expiry dates you can't see printed on the label.** We treat security as binary, safe or broken, but algorithms actually move through a life cycle: trusted, then questioned, then quietly dangerous, while the cost of attacking them falls every year even when they don't change at all. Something safe in 2005 was questionable by 2015 and reckless today.
+
+What that rewards in practice is *crypto-agility*: building systems where the hash or cipher or signature scheme is a swappable component, not a load-bearing assumption welded in eight directories deep. The teams that handled SHA-1 gracefully weren't the ones who picked the perfect algorithm. They're the ones who'd assumed from the start they'd have to replace whatever they picked.
+
+So no, don't panic on your next git push or when you click the padlock, that's SHA-2 and you're fine. Just remember that "secure" almost always comes with a quiet expiry date, and the engineering that matters is being ready for it.
+
+I'm Zaid, a software engineer who spends most of his time on backend systems and the boring-but-load-bearing parts of software. More of what I'm building and writing is at [zaidsiddiqui.dev](https://zaidsiddiqui.dev).
