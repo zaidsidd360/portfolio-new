@@ -20,9 +20,11 @@ const STACK = [
 	{ name: "prisma", label: "Prisma" },
 	{ name: "postgresql", label: "PostgreSQL" },
 	{ name: "mongodb", label: "MongoDB" },
+	{ name: "redis", label: "Redis" },
 	{ name: "aws", label: "AWS" },
 	{ name: "ec2", label: "AWS EC2" },
 	{ name: "git", label: "Git" },
+	{ name: "github", label: "GitHub" },
 	{ name: "postman", label: "Postman" },
 	{ name: "arc", label: "Arc" },
 	{ name: "cursor", label: "Cursor" },
@@ -68,13 +70,7 @@ export default function TechStack() {
 						Stack
 					</span>
 
-					<div
-						style={{
-							display: "flex",
-							flexWrap: "wrap",
-							gap: "32px 24px",
-						}}
-					>
+					<div className="stack-grid">
 						{STACK.map((tech) => (
 							<div
 								key={tech.name}
@@ -83,6 +79,7 @@ export default function TechStack() {
 									display: "flex",
 									flexDirection: "column",
 									alignItems: "center",
+									justifyContent: "center",
 									gap: "8px",
 									opacity: 0,
 								}}
@@ -93,6 +90,7 @@ export default function TechStack() {
 										tech.name === "nextjs" ||
 										tech.name === "expressjs" ||
 										tech.name === "socketio" ||
+										tech.name === "github" ||
 										tech.name === "shadcnui"
 											? (theme as "dark" | "light")
 											: "grayscale"

@@ -131,6 +131,44 @@
   .gsap-init { opacity: 1; transform: none; }
 }
 
+/* Tech stack grid with inner lines that fade toward the edges.
+   Lines live on a ::before layer behind the icons and are masked, so the
+   icons themselves stay fully crisp — only the grid lines fade out. */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 96px;
+  position: relative;
+}
+.stack-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(to right, var(--border) 0, var(--border) 1px, transparent 1px, transparent calc(100% / 5)),
+    repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 1px, transparent 1px, transparent 96px);
+  /* The gradients draw a line on the left/top edge but not the right/bottom;
+     match them so all four edges are balanced and fade symmetrically. */
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 38%, transparent 78%);
+          mask-image: radial-gradient(ellipse at center, #000 38%, transparent 78%);
+}
+.stack-grid > .stack-item {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 640px) {
+  .stack-grid { grid-template-columns: repeat(3, 1fr); }
+  .stack-grid::before {
+    background-image:
+      repeating-linear-gradient(to right, var(--border) 0, var(--border) 1px, transparent 1px, transparent calc(100% / 3)),
+      repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 1px, transparent 1px, transparent 96px);
+  }
+}
+
 /* 404 astronaut gentle float */
 @keyframes astroFloat {
   0%, 100% { transform: translateY(0) rotate(-1.5deg); }
