@@ -84,58 +84,7 @@ export default function Contact() {
           className="flex items-center justify-between"
           style={{ fontSize: "12px", color: "var(--fg-muted)", fontFamily: "Ubuntu Mono, monospace" }}
         >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-            Md Zaid Siddiqui
-            <span
-              title="In solidarity with persecuted people everywhere"
-              aria-label="In solidarity with persecuted people everywhere"
-              role="img"
-              style={{ display: "inline-flex", alignItems: "center", gap: "5px", opacity: 0.85 }}
-            >
-              {/* Palestine */}
-              <svg
-                width="16"
-                height="11"
-                viewBox="0 0 30 20"
-                aria-hidden="true"
-                style={{ borderRadius: "2px", overflow: "hidden", display: "block" }}
-              >
-                <rect width="30" height="20" fill="#fff" />
-                <rect width="30" height="6.667" y="0" fill="#000" />
-                <rect width="30" height="6.667" y="13.333" fill="#007A3D" />
-                <path d="M0 0 L13 10 L0 20 Z" fill="#CE1126" />
-              </svg>
-              {/* Sudan */}
-              <svg
-                width="16"
-                height="11"
-                viewBox="0 0 30 20"
-                aria-hidden="true"
-                style={{ borderRadius: "2px", overflow: "hidden", display: "block" }}
-              >
-                <rect width="30" height="20" fill="#fff" />
-                <rect width="30" height="6.667" y="0" fill="#D21034" />
-                <rect width="30" height="6.667" y="13.333" fill="#000" />
-                <path d="M0 0 L13 10 L0 20 Z" fill="#007229" />
-              </svg>
-              {/* DR Congo */}
-              <svg
-                width="16"
-                height="11"
-                viewBox="0 0 30 20"
-                aria-hidden="true"
-                style={{ borderRadius: "2px", overflow: "hidden", display: "block" }}
-              >
-                <rect width="30" height="20" fill="#0095DA" />
-                <line x1="0" y1="20" x2="30" y2="0" stroke="#F7D618" strokeWidth="6" />
-                <line x1="0" y1="20" x2="30" y2="0" stroke="#CE1021" strokeWidth="3.2" />
-                <path
-                  d="M5 2 L5.705 4.029 L7.853 4.073 L6.141 5.371 L6.763 7.427 L5 6.2 L3.237 7.427 L3.859 5.371 L2.147 4.073 L4.295 4.029 Z"
-                  fill="#F7D618"
-                />
-              </svg>
-            </span>
-          </span>
+          <span>Md Zaid Siddiqui</span>
           <span>© {new Date().getFullYear()}</span>
         </div>
       </div>
