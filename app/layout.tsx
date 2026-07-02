@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-// @ts-ignore TS2307: side-effect CSS import without type declarations
 import "./globals.css";
 import Providers from "@/components/Providers";
 
