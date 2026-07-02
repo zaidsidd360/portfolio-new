@@ -159,15 +159,15 @@ export default function Hero() {
 						{/* Role line */}
 						<p className="hero-sub mb-12 max-w-[480px] text-[clamp(16px,2.2vw,20px)] font-light leading-[1.55] text-fg-muted">
 							Software engineer. I build APIs, search
-							infrastructure, and AI pipelines at scale. Currently
-							building{" "}
+							infrastructure, and AI pipelines at scale. Creator
+							of{" "}
 							<a
-								href="https://discovry.app"
+								href="https://antymo.com"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="font-medium text-fg underline underline-offset-[3px]"
 							>
-								Discovry
+								Antymo
 							</a>
 							.
 						</p>

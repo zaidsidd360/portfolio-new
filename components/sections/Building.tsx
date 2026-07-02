@@ -49,10 +49,10 @@ export default function Building() {
                     marginBottom: "4px",
                   }}
                 >
-                  Discovry
+                  Antymo
                 </h2>
                 <a
-                  href="https://discovry.app"
+                  href="https://antymo.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -75,14 +75,14 @@ export default function Building() {
                     e.currentTarget.style.borderBottomColor = "var(--border)";
                   }}
                 >
-                  discovry.app
+                  antymo.com
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                     <path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </a>
               </div>
               <span className="label" style={{ color: "var(--fg-muted)", paddingTop: "4px", flexShrink: 0 }}>
-                Since 2025
+                Since 2026
               </span>
             </div>
 
@@ -97,14 +97,14 @@ export default function Building() {
                 marginBottom: "16px",
               }}
             >
-              AI-first Google Business Profile management for agencies. Automates posts, review replies,
-              geo-grid rank tracking, and profile health across all client locations, so agencies stop doing it by hand.
-              Built solo, currently in private beta.
+              Deal tracking built for independent creator managers. Every brand deal, payment, deadline,
+              and commission in one pipeline, so nothing slips through the cracks and no invoice goes unchased.
+              Built solo, live now.
             </p>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2">
-              {["GBP API", "AI review replies", "Rank tracking", "Multi-location", "White-label"].map((t) => (
+              {["Deal pipeline", "Payment tracking", "Commission calc", "Creator CRM", "AI follow-ups"].map((t) => (
                 <span key={t} className="tag">{t}</span>
               ))}
             </div>

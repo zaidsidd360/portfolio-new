@@ -1,6 +1,6 @@
 ---
 title: "Agents are the future. The model is the easy part."
-description: "Everyone says they're building AI agents. Few have shipped one. After building agentic features into Discovry, here's why I'm convinced this is the direction, and why the hard part isn't the model."
+description: "Everyone says they're building AI agents. Few have shipped one. After building agentic features into a product of my own, here's why I'm convinced this is the direction, and why the hard part isn't the model."
 date: "2026-06-01"
 slug: "ai-agents-the-model-is-the-easy-part"
 tags: ["AI Agents", "Agentic Systems", "LLMs", "Engineering"]
@@ -10,13 +10,13 @@ canonical: "https://zaidsiddiqui.dev/blog/ai-agents-the-model-is-the-easy-part"
 
 If you read the headlines, every company on earth runs on AI agents now. If you read the production data, almost none do. The surveys this year keep landing on the same gap: a large majority of teams say they're "adopting agentic AI," and only a sliver have anything in production beyond a chatbot with a long system prompt. Companies are chasing. Few are catching.
 
-I've spent the last while on the catching side of that gap, building agentic features into [Discovry](https://discovry.app), and I want to make two claims that sound contradictory but aren't. First, this is genuinely the future, and not in a vague way. Second, the model is the easy part, and almost everything that matters is the boring engineering around it.
+I've spent the last while on the catching side of that gap, building agentic features into a product of my own, and I want to make two claims that sound contradictory but aren't. First, this is genuinely the future, and not in a vague way. Second, the model is the easy part, and almost everything that matters is the boring engineering around it.
 
 ## What "agentic" actually changes
 
 Most software shows you things and waits. You open a dashboard, you read the numbers, you decide, you click. An agent collapses that loop. It reads the same numbers, decides, and takes the action on your behalf, then tells you what it did.
 
-Discovry is a narrow, concrete version of this. It doesn't just surface the state of a business profile, it drafts the post, writes the reply to the review, tracks where you rank across a geo-grid, and flags the profile that quietly went sideways. The work that used to be a person opening twenty tabs becomes a thing that just happens, with a human glancing at the result instead of producing it.
+A product I built is a narrow, concrete version of this. It doesn't just surface the state of a business profile, it drafts the post, writes the reply to the review, tracks where you rank across a geo-grid, and flags the profile that quietly went sideways. The work that used to be a person opening twenty tabs becomes a thing that just happens, with a human glancing at the result instead of producing it.
 
 Once you have built even one workflow that genuinely does the job rather than assisting with it, going back feels absurd. That is the shift, and it is already real in narrow forms. The reason it doesn't feel real yet at large is not the vision. It's the reliability.
 
@@ -32,7 +32,7 @@ That reframes the whole problem. The bottleneck usually isn't intelligence. It's
 
 A few things have mattered far more than picking the smartest model.
 
-**Narrow the scope until it's almost boring.** A general autonomous agent that can "do anything" is a demo. A narrow agent that does one workflow with a clear definition of success is a product. Discovry isn't "an AI that runs your marketing." It's a specific set of jobs, each with a checkable outcome. The narrower the job, the easier it is to make it trustworthy, and trustworthy is the only version that ships.
+**Narrow the scope until it's almost boring.** A general autonomous agent that can "do anything" is a demo. A narrow agent that does one workflow with a clear definition of success is a product. The one I built isn't "an AI that runs your marketing." It's a specific set of jobs, each with a checkable outcome. The narrower the job, the easier it is to make it trustworthy, and trustworthy is the only version that ships.
 
 **Context engineering is the actual work.** The model can only act on what reaches it at inference time. Most of the real engineering is deciding what to retrieve, what to summarize, what to drop, and what to pass through untouched. The lesson the whole field converged on this year is that context quality, not context volume, is the limit. Stuffing the window is not the same as helping the model.
 
@@ -50,4 +50,4 @@ The hype cycle rewards whoever has the best demo. The next few years reward whoe
 
 So yes, agents are the future. Not because the models will suddenly become flawless, but because the systems around them are getting good enough to absorb the flaws. The teams that win won't be the ones with access to a smarter model. Everyone has that. They'll be the ones who did the engineering.
 
-That's the bet I'm making with Discovry, one narrow, reliable workflow at a time. If you're building in this space, I'd love to compare notes: [zaidsiddiqui.dev](https://zaidsiddiqui.dev).
+That's the bet I'm making with my own product, one narrow, reliable workflow at a time. If you're building in this space, I'd love to compare notes: [zaidsiddiqui.dev](https://zaidsiddiqui.dev).

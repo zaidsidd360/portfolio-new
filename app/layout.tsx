@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
+// @ts-ignore TS2307: side-effect CSS import without type declarations
 import "./globals.css";
 import Providers from "@/components/Providers";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zaidsiddiqui.dev";
 const title = "Md Zaid Siddiqui · Software Engineer";
 const description =
-  "Md Zaid Siddiqui is a software engineer building APIs, search infrastructure, and AI pipelines at scale. Currently at Vujis and building Discovry.";
+  "Md Zaid Siddiqui is a software engineer building APIs, search infrastructure, and AI pipelines at scale. Currently at Vujis and building Antymo.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     "OpenSearch",
     "search infrastructure",
     "AI pipelines",
-    "Discovry",
+    "Antymo",
     "Hyderabad",
     "portfolio",
   ],

@@ -81,8 +81,8 @@ function Whoami(): ReactElement {
           Vujis
         </a>
         , shipping{" "}
-        <a style={link} href="https://discovry.app" target="_blank" rel="noopener noreferrer">
-          Discovry
+        <a style={link} href="https://antymo.com" target="_blank" rel="noopener noreferrer">
+          Antymo
         </a>{" "}
         on the side.
       </div>
@@ -150,7 +150,7 @@ function Contact(): ReactElement {
     ["email", "zaidsidd360@gmail.com", "mailto:zaidsidd360@gmail.com"],
     ["github", "github.com/zaidsidd360", "https://github.com/zaidsidd360"],
     ["linkedin", "linkedin.com/in/zaidsidd360", "https://linkedin.com/in/zaidsidd360"],
-    ["building", "discovry.app", "https://discovry.app"],
+    ["building", "antymo.com", "https://antymo.com"],
   ];
   return (
     <Block>

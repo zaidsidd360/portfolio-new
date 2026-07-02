@@ -51,14 +51,14 @@ export default function About() {
               style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}
             >
               Vujis
-            </a>, and shipping{" "}
+            </a>, and scaling{" "}
               <a
-                href="https://discovry.app"
+                href="https://antymo.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}
               >
-                Discovry
+                Antymo
               </a>{" "}
               on the side. B.Tech in Computer Science and Engineering.
             </p>

@@ -65,19 +65,19 @@ export default function About() {
               <p className={prose}>
                 I&apos;m a software engineer at <span className={strong}>Vujis</span>,
                 working on search and AI features that run against real production load.
-                On the side I&apos;m building{" "}
+                On the side I run{" "}
                 <a
-                  href="https://discovry.app"
+                  href="https://antymo.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link"
                 >
-                  Discovry
+                  Antymo
                 </a>
-                , an AI-first tool that automates Google Business Profile management for
-                agencies: posts, review replies, rank tracking, and profile health
-                across every client location. It&apos;s where I get to own the whole
-                stack and ship on my own terms.
+                , a deal-tracking tool for independent creator managers. It pulls every
+                brand deal, payment, deadline, and commission into one pipeline so nothing
+                slips through the cracks. It&apos;s where I get to own the whole stack and
+                ship on my own terms.
               </p>
             </Row>
 
