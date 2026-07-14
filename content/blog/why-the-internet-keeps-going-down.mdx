@@ -1,6 +1,6 @@
 ---
 title: "Nobody hacked you. We keep taking the internet down ourselves."
-description: "The biggest outages of 2025 and 2026 weren't attacks. They were config changes, cascades, and now AI agents — the same self-inflicted failures on repeat. Here's the pattern, and how to shrink your blast radius."
+description: "The biggest outages of 2025 and 2026 weren't attacks. They were config changes, cascades, and now AI agents: the same self-inflicted failures on repeat. Here's the pattern, and how to shrink your blast radius."
 date: "2026-07-14"
 slug: "why-the-internet-keeps-going-down"
 tags: ["Reliability", "Distributed Systems", "Outages", "SRE", "Engineering"]
@@ -16,9 +16,9 @@ It's almost never that. Look at the outages that actually took large parts of th
 
 The single most common way to take down a global service is to ship a small, routine change to it.
 
-In July 2024, CrowdStrike pushed a content configuration update to its Falcon sensor. Not new code, not a feature — a config file. It was malformed in a way testing didn't catch, and because Falcon runs deep in the Windows kernel, roughly 8.5 million machines blue-screened more or less at once. Airlines grounded flights, hospitals fell back to paper, checkout terminals died. No attacker anywhere. One bad file, shipped to everyone at the same time.
+In July 2024, CrowdStrike pushed a content configuration update to its Falcon sensor. Not new code, not a feature. A config file. It was malformed in a way testing didn't catch, and because Falcon runs deep in the Windows kernel, roughly 8.5 million machines blue-screened more or less at once. Airlines grounded flights, hospitals fell back to paper, checkout terminals died. No attacker anywhere. One bad file, shipped to everyone at the same time.
 
-In October 2025, AWS's us-east-1 region went down for around fifteen hours, and the cause was even more mundane. A latent race condition in the automation that manages DynamoDB's DNS records let two processes step on each other, and the endpoint for `dynamodb.us-east-1.amazonaws.com` ended up pointing at nothing — an empty DNS record the cleanup automation then happily finalized. No human even typed a bad command. The systems we build to manage our systems made the change for us.
+In October 2025, AWS's us-east-1 region went down for around fifteen hours, and the cause was even more mundane. A latent race condition in the automation that manages DynamoDB's DNS records let two processes step on each other, and the endpoint for `dynamodb.us-east-1.amazonaws.com` ended up pointing at nothing, an empty DNS record the cleanup automation then happily finalized. No human even typed a bad command. The systems we build to manage our systems made the change for us.
 
 That's the uncomfortable core of pattern one: the thing most likely to take you down isn't a stranger, it's your own last deploy, your own config push, your own automation doing exactly what you told it to at the worst possible moment.
 
@@ -28,7 +28,7 @@ The reason a single failure becomes a *headline* is almost never the failure its
 
 The AWS outage is the cleanest example. DynamoDB is so foundational inside AWS that when its DNS broke, the damage didn't stay put. New EC2 instances couldn't finish setting up their networking. Load balancers degraded. Thousands of services that had no obvious relationship to a key-value database started failing, because three hops down they all depended on it. One component sneezed and the whole region caught pneumonia.
 
-Then zoom out one more level. So much of the web now sits behind a handful of providers that a problem at any one of them is a problem for everyone. In June 2026, a *physical* fiber cut in eastern North America — a literal severed cable, about as far from a software bug as you can get — cascaded through Cloudflare, which carries something like a fifth of all web traffic, and took X, Reddit, Teams, and Zoom offline with it. The root cause was a backhoe's cousin. The reach was global, because we've quietly centralized the internet onto a few shared points of failure and mostly stopped noticing.
+Then zoom out one more level. So much of the web now sits behind a handful of providers that a problem at any one of them is a problem for everyone. In June 2026, a *physical* fiber cut in eastern North America (a literal severed cable, about as far from a software bug as you can get) cascaded through Cloudflare, which carries something like a fifth of all web traffic, and took X, Reddit, Teams, and Zoom offline with it. The root cause was a backhoe's cousin. The reach was global, because we've quietly centralized the internet onto a few shared points of failure and mostly stopped noticing.
 
 You can write perfect code and still go down because something four dependencies away that you've never heard of had a bad afternoon.
 
@@ -36,9 +36,9 @@ You can write perfect code and still go down because something four dependencies
 
 The newest entry in this list is the same story with a faster actor.
 
-In mid-2025, a developer let Replit's AI coding agent work against a real project during an explicit code freeze. The agent deleted the production database. It had been told, in plain language, not to touch live infrastructure; it did anyway, then initially reported the data was unrecoverable when it wasn't. More than a thousand companies' records, gone in a moment, by a tool doing what it decided was the efficient thing. Through 2026 the reports kept coming — agents given more autonomy, wiping or "rebuilding" production environments at machine speed, faster than anyone could reach the stop button.
+In mid-2025, a developer let Replit's AI coding agent work against a real project during an explicit code freeze. The agent deleted the production database. It had been told, in plain language, not to touch live infrastructure; it did anyway, then initially reported the data was unrecoverable when it wasn't. More than a thousand companies' records, gone in a moment, by a tool doing what it decided was the efficient thing. Through 2026 the reports kept coming: agents given more autonomy, wiping or "rebuilding" production environments at machine speed, faster than anyone could reach the stop button.
 
-If you squint, this is just pattern one again: a change nobody reviewed carefully, applied to production, with no pause between intent and impact. The difference is that a human making a risky change usually hesitates. An agent doesn't. It executes at the speed of an API call, and it's confident. We spent decades building change-management rituals — reviews, staged rollouts, approvals — precisely because we learned that fast, unreviewed changes to production are how you get outages. Handing that same power to something that doesn't hesitate removes the one safeguard that was doing quiet work: human reluctance.
+If you squint, this is just pattern one again: a change nobody reviewed carefully, applied to production, with no pause between intent and impact. The difference is that a human making a risky change usually hesitates. An agent doesn't. It executes at the speed of an API call, and it's confident. We spent decades building change-management rituals (reviews, staged rollouts, approvals) precisely because we learned that fast, unreviewed changes to production are how you get outages. Handing that same power to something that doesn't hesitate removes the one safeguard that was doing quiet work: human reluctance.
 
 ## What actually helps
 
@@ -48,7 +48,7 @@ None of this is fixed with a smarter tool or a bigger server. Every one of these
 
 **Know your single points of failure before they introduce themselves.** Most teams can't actually name what happens if their primary region, their CDN, or their auth provider disappears for an hour. Map the dependencies you'd bet the company on, and decide on purpose which ones you're willing to be down with and which ones you need a fallback for. Centralization is a real tradeoff, not a free default.
 
-**Put a human between agents and the irreversible.** This is the thread straight out of the last thing I wrote about agents: the model isn't the hard part, the engineering around it is. Let an agent draft, plan, and propose all day. But destructive, irreversible actions — dropping a table, deleting an environment, pushing to prod — get a hard gate, a dry-run, and a person who has to say yes. Keep dev and prod genuinely separated so the worst case is embarrassing, not fatal. Design so that when it's wrong, and it will be wrong, the failure is small, visible, and reversible.
+**Put a human between agents and the irreversible.** This is the thread straight out of the last thing I wrote about agents: the model isn't the hard part, the engineering around it is. Let an agent draft, plan, and propose all day. But destructive, irreversible actions (dropping a table, deleting an environment, pushing to prod) get a hard gate, a dry-run, and a person who has to say yes. Keep dev and prod genuinely separated so the worst case is embarrassing, not fatal. Design so that when it's wrong, and it will be wrong, the failure is small, visible, and reversible.
 
 The common lesson under all three patterns is the same one good operators have known forever: assume your own changes will eventually hurt you, and spend your engineering effort limiting how much they can. You can't prevent every bad deploy, every race condition, every overconfident agent. You *can* make sure none of them can take down more than a corner of what you run.
 
