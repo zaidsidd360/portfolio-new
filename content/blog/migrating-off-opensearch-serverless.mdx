@@ -1,0 +1,37 @@
+---
+title: "Serverless was billing us for headroom we never used"
+description: "We moved a 1.5B-document OpenSearch collection off Serverless onto a single self-managed node, and cut the monthly bill from $1,800 to around $560. Here's the shard math that made that safe."
+date: "2026-08-02"
+slug: "migrating-off-opensearch-serverless"
+tags: ["OpenSearch", "AWS EC2", "Infrastructure", "Cost Optimization"]
+author: "Md Zaid Siddiqui"
+canonical: "https://zaidsiddiqui.dev/blog/migrating-off-opensearch-serverless"
+---
+
+OpenSearch Serverless is a good product for a workload that doesn't know its own shape yet. It scales automatically, you don't provision anything, and you pay for whatever elasticity you end up needing. Ours had stopped being that workload a while ago. The document count had grown past 1.5 billion, the traffic pattern was steady and well understood, and the bill sat at around $1,800 a month for capacity we were, by then, mostly not using.
+
+That's the tell with serverless pricing in general: you're not paying for your usage, you're paying for someone else's worst case. If your worst case never shows up, you're subsidizing headroom that just sits there.
+
+So the question was whether a self-managed cluster, sized correctly for a workload we now understood, could do the same job for meaningfully less.
+
+## Sizing it for real, not for round numbers
+
+The index in question, `shipments`, holds 1.54 billion documents across 5 primary shards, roughly 308 million docs and 126GB per shard, 630GB total. That shard count wasn't arbitrary. It came from working backward from a target shard size rather than picking a number that looked tidy. Oversized shards get slow to recover and rebalance, and too many small shards waste overhead on cluster state bookkeeping neither of us needed to pay for. 126GB per shard on OpenSearch 2.13 sits in a range that's large enough to be efficient without being unwieldy to move or recover.
+
+The node ended up being a single `r6i.xlarge` (4 vCPUs, 32GB of RAM) backed by a 2TB EBS volume. Post-migration, disk sits around 32% used, which leaves real room to grow before another sizing conversation is needed. Heap sits around 44%. RAM runs close to full, which is the honest cost of putting a document count like this on a single mid-size node. There's very little slack, and it's the number I'd watch first if query latency ever started drifting.
+
+## The tradeoff I made on purpose
+
+This cluster runs one node, zero replicas. No hedging that: it means no automatic failover if that node has a bad day, which is not a tradeoff you'd want on a system of record. It's a tradeoff you can make on a search index that's a derived, rebuildable view of data that lives durably somewhere else. Two things made zero replicas an acceptable risk rather than a reckless one: the cluster snapshots to S3 on a schedule, and the whole index can be rebuilt from Postgres, the actual source of truth, with a single command if it ever came to that. Serverless quietly buys you redundancy as part of the package. Going self-managed means deciding, on purpose, whether you actually need to pay for it, and having a real answer ready for the day you're wrong.
+
+## The migration itself
+
+Moving 1.5B+ documents without downtime meant standing up the new cluster alongside the old collection, backfilling in the background, and only cutting traffic over once the new node had held up under a shadow load for a stretch, rather than trusting the shard math alone and flipping cold. The whole thing took about three days end to end, and almost none of that was clever. Reindexing at that volume is less a technical problem than a patience one: chunk it, watch cluster health while it runs, and don't let one slow batch stall the whole backfill.
+
+## What it actually bought us
+
+The self-managed setup came in at roughly $560 a month, a 69% drop from the $1,800 Serverless was charging, on the same document volume and the same query shapes the earlier latency work had already tuned down to around 500ms average. Nothing changed for anything calling the search API. The migration is invisible from that side.
+
+The lesson that stuck: serverless earns its premium when you don't yet know your traffic shape, or when that shape is genuinely volatile. Once you've been running long enough to actually know it, a correctly sized self-managed node is very often the cheaper, equally workable choice, as long as you're honest with yourself about which guarantees you're choosing to give up to get there.
+
+I'm Zaid, a software engineer working on search infrastructure and AI pipelines. If you're staring at your own OpenSearch bill, I'm always happy to compare notes. More of what I'm building is at [zaidsiddiqui.dev](https://zaidsiddiqui.dev).
