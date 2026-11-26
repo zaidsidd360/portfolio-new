@@ -32,14 +32,14 @@ export default function Building() {
       <div className="container">
         <div className="divider mb-16" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-8 sm:gap-16">
-          <span className="label pt-1 font-bold" style={{ color: "var(--fg-muted)" }}>Building</span>
+        <div className="flex flex-col gap-10">
+          <h2 className="section-title">What I&apos;m building.</h2>
 
           <div ref={contentRef} style={{ opacity: 1 }}>
             {/* Title row */}
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <h2
+                <h3
                   style={{
                     fontSize: "clamp(24px,4vw,36px)",
                     fontWeight: 700,
@@ -50,7 +50,7 @@ export default function Building() {
                   }}
                 >
                   Antymo
-                </h2>
+                </h3>
                 <a
                   href="https://antymo.com"
                   target="_blank"

@@ -3,7 +3,7 @@ export const PERSONAL = {
   title: "Software Engineer",
   tagline: "Building scalable systems at the intersection of performance and elegance.",
   bio: "I'm a software engineer who obsesses over latency numbers, clean abstractions, and shipping things that actually work. Currently at Vujis, where I architect AI pipelines, search infrastructure, and APIs that handle real production load.",
-  email: "zaidsidd360@gmail.com",
+  email: "hi@zaidsiddiqui.dev",
   phone: "7044294158",
   linkedin: "https://linkedin.com/in/zaidsidd360",
   github: "https://github.com/zaidsidd360",
@@ -100,19 +100,6 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-  {
-    title: "Live Polling System",
-    description:
-      "A real-time classroom polling system with distinct teacher/student interfaces, built for scale and low latency.",
-    tech: ["React", "Express.js", "Socket.io", "Tailwind CSS", "MongoDB"],
-    liveUrl: "#",
-    highlights: [
-      "100+ concurrent users with sub-200ms latency via Socket.io",
-      "Teacher dashboard with 50+ poll tracking and detailed response analytics",
-      "MongoDB with indexed queries for 10k+ responses, query time down 40%",
-    ],
-    featured: true,
-  },
   {
     title: "React-Terminal",
     description:

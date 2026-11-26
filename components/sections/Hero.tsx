@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { SquareTerminal, X } from "lucide-react";
+import HeroStatus from "@/components/HeroStatus";
 
-// styled-components inside the library is client-only — skip SSR to avoid
+// styled-components inside the library is client-only, so skip SSR to avoid
 // hydration/registry issues and keep it out of the initial bundle.
 const HeroTerminalPanel = dynamic(
 	() => import("@/components/terminal/HeroTerminalPanel"),
@@ -119,15 +120,10 @@ export default function Hero() {
 					<>
 						{/* Status */}
 						<div className="hero-line mb-10 flex items-center justify-between gap-2">
-							<div className="flex items-center gap-2">
-								<span
-									className="inline-block h-1.5 w-1.5 rounded-full bg-green-500"
-									aria-hidden
-								/>
-								<span className="label">
-									Available for work
-								</span>
-							</div>
+							<HeroStatus
+								isMac={isMac}
+								onOpenTerminal={openTerminal}
+							/>
 							<div className="group relative md:flex items-center hidden">
 								<button
 									type="button"
@@ -159,17 +155,7 @@ export default function Hero() {
 						{/* Role line */}
 						<p className="hero-sub mb-12 max-w-[480px] text-[clamp(16px,2.2vw,20px)] font-light leading-[1.55] text-fg-muted">
 							Software engineer. I build APIs, search
-							infrastructure, and AI pipelines at scale. Creator
-							of{" "}
-							<a
-								href="https://antymo.com"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="font-medium text-fg underline underline-offset-[3px]"
-							>
-								Antymo
-							</a>
-							.
+							infrastructure, and AI pipelines at scale.
 						</p>
 
 						{/* CTAs */}
@@ -195,10 +181,10 @@ export default function Hero() {
 								</svg>
 							</a>
 							<a
-								href="mailto:zaidsidd360@gmail.com"
+								href="mailto:hi@zaidsiddiqui.dev"
 								className="link text-[13px]"
 							>
-								zaidsidd360@gmail.com
+								hi@zaidsiddiqui.dev
 							</a>
 						</div>
 					</>

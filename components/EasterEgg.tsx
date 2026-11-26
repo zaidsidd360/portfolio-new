@@ -39,6 +39,30 @@ const EGGS = [
     emoji: "⚖️",
     color: "#c0863a",
   },
+  // Silicon Valley
+  {
+    show: "Silicon Valley",
+    quotes: [
+      // Jian-Yang
+      { text: "Not hotdog.", attr: "Jian-Yang" },
+      { text: "Erlich Bachman, this is you as an old man. I'm ugly and I'm dead. Alone.", attr: "Jian-Yang" },
+      { text: "Question for you. What's better than an octopus recipe? Answer for you. Eight recipes for octopus.", attr: "Jian-Yang" },
+      // Erlich
+      { text: "You just brought piss to a shit fight!", attr: "Erlich Bachman" },
+      { text: "Apple, Google, Hewlett-Packard, even Aviato, all of them were started in unzoned garages.", attr: "Erlich Bachman" },
+      // Gilfoyle
+      { text: "It has all that going for it, Richard, and I still hate it.", attr: "Bertram Gilfoyle" },
+      { text: "I'm sure you can find your way out with one of your two faces.", attr: "Bertram Gilfoyle" },
+      // Jared
+      { text: "Hey! Sorry if I scared you, I know I have somewhat ghost-like features.", attr: "Jared Dunn" },
+      { text: "I've always been very adept at taking the shape of whatever shoe is pressed down upon me so I can try to make it work.", attr: "Jared Dunn" },
+      // The rest
+      { text: "Failure is growth. Failure is learning. But sometimes failure is just failure.", attr: "Gavin Belson" },
+      { text: "Face it, Jared, being too early is the same as being wrong.", attr: "Richard Hendricks" },
+    ],
+    emoji: "🌭",
+    color: "#4f9a5c",
+  },
 ];
 
 export default function EasterEgg() {
@@ -134,7 +158,7 @@ export default function EasterEgg() {
             color: "var(--fg-muted)",
           }}
         >
-          — {quote.attr}
+          {quote.attr}
         </p>
       </div>
     </div>

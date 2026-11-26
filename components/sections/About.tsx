@@ -30,8 +30,8 @@ export default function About() {
       <div className="container">
         <div className="divider mb-16" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-8 sm:gap-16">
-          <span className="about-reveal label pt-1 font-bold">About</span>
+        <div className="flex flex-col gap-10">
+          <h2 className="about-reveal section-title">I make slow things fast.</h2>
           <div className="space-y-4">
             <p
               className="about-reveal"
@@ -51,16 +51,7 @@ export default function About() {
               style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}
             >
               Vujis
-            </a>, and scaling{" "}
-              <a
-                href="https://antymo.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}
-              >
-                Antymo
-              </a>{" "}
-              on the side. B.Tech in Computer Science and Engineering.
+            </a>. B.Tech in Computer Science and Engineering.
             </p>
             <Link
               href="/about"

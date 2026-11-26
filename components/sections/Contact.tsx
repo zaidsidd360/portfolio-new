@@ -28,54 +28,37 @@ export default function Contact() {
       <div className="container">
         <div className="divider mb-16" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-8 sm:gap-16">
-          <span className="contact-reveal label pt-1 font-bold">Contact</span>
-          <div>
-            <p
-              className="contact-reveal mb-8"
-              style={{ fontSize: "clamp(17px,2.2vw,20px)", fontWeight: 300, lineHeight: "1.6", color: "var(--fg-muted)" }}
-            >
-              Open to full-time software engineering roles.
-            </p>
+        <h2
+          className="contact-reveal section-title"
+        >
+          Open to full-time roles.
+        </h2>
 
-            <div className="contact-reveal flex flex-col gap-3">
-              {[
-                { label: "Email", value: "zaidsidd360@gmail.com", href: "mailto:zaidsidd360@gmail.com" },
-                { label: "LinkedIn", value: "linkedin.com/in/zaidsidd360", href: "https://linkedin.com/in/zaidsidd360" },
-                { label: "GitHub", value: "github.com/zaidsidd360", href: "https://github.com/zaidsidd360" },
-                { label: "Resume", value: "download (PDF)", href: "/MdZaidSiddiquiResume.pdf" },
-              ].map(({ label, value, href }) => (
-                <div key={label} className="flex items-baseline gap-6">
-                  <span className="label w-16 shrink-0">{label}</span>
-                  <a
-                    href={href}
-                    target={href.startsWith("mailto") ? undefined : "_blank"}
-                    rel="noopener noreferrer"
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 300,
-                      fontFamily: "Ubuntu Mono, monospace",
-                      color: "var(--fg-muted)",
-                      textDecoration: "none",
-                      borderBottom: "1px solid var(--border)",
-                      paddingBottom: "1px",
-                      transition: "color 0.15s, border-color 0.15s",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "var(--fg)";
-                      e.currentTarget.style.borderBottomColor = "var(--fg)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = "var(--fg-muted)";
-                      e.currentTarget.style.borderBottomColor = "var(--border)";
-                    }}
-                  >
-                    {value}
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
+        <a
+          href="mailto:hi@zaidsiddiqui.dev"
+          className="contact-reveal contact-email mt-3 mb-10 inline-block text-fg no-underline"
+          style={{ fontSize: "clamp(32px,10vw,76px)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.04em" }}
+        >
+          hi@zaidsiddiqui.dev
+        </a>
+
+        <div className="contact-reveal flex flex-wrap gap-x-7 gap-y-3 text-[15px] text-fg-muted">
+          {[
+            { label: "GitHub", href: "https://github.com/zaidsidd360" },
+            { label: "LinkedIn", href: "https://linkedin.com/in/zaidsidd360" },
+            { label: "X", href: "https://x.com/zaidsidd360" },
+            { label: "Resume (PDF)", href: "/MdZaidSiddiquiResume.pdf" },
+          ].map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link py-2 text-fg-muted no-underline transition-colors hover:text-fg"
+            >
+              {label}
+            </a>
+          ))}
         </div>
 
         {/* Footer */}

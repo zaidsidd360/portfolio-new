@@ -23,7 +23,7 @@ export default function ExperiencePage() {
       <Navbar />
       <main className="min-h-screen pt-32 pb-24">
         <div className="container">
-          <span className="label">Experience</span>
+          <span className="heading">Experience</span>
           <h1 className="mb-16 mt-3 max-w-[760px] text-[clamp(30px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.03em] text-fg">
             Systems I&apos;ve built, and the problems that made them interesting.
           </h1>

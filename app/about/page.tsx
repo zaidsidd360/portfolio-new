@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="grid grid-cols-1 gap-3 border-t border-line py-10 sm:grid-cols-[130px_1fr] sm:gap-16">
-      <span className="label pt-1">{label}</span>
+      <span className="heading pt-1">{label}</span>
       <div className="max-w-[640px] space-y-4">{children}</div>
     </div>
   );
@@ -34,7 +34,7 @@ export default function About() {
       <Navbar />
       <main className="min-h-screen pt-32 pb-24">
         <div className="container">
-          <span className="label">About</span>
+          <span className="heading">About</span>
           <h1 className="mb-10 mt-3 max-w-[760px] text-[clamp(30px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.03em] text-fg">
             I care about the systems that stay fast under load.
           </h1>
@@ -65,19 +65,6 @@ export default function About() {
               <p className={prose}>
                 I&apos;m a software engineer at <span className={strong}>Vujis</span>,
                 working on search and AI features that run against real production load.
-                On the side I run{" "}
-                <a
-                  href="https://antymo.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link"
-                >
-                  Antymo
-                </a>
-                , a deal-tracking tool for independent creator managers. It pulls every
-                brand deal, payment, deadline, and commission into one pipeline so nothing
-                slips through the cracks. It&apos;s where I get to own the whole stack and
-                ship on my own terms.
               </p>
             </Row>
 
@@ -104,7 +91,7 @@ export default function About() {
             <Row label="Elsewhere">
               <div className="flex flex-col gap-2.5">
                 {[
-                  { k: "Email", v: "zaidsidd360@gmail.com", href: "mailto:zaidsidd360@gmail.com" },
+                  { k: "Email", v: "hi@zaidsiddiqui.dev", href: "mailto:hi@zaidsiddiqui.dev" },
                   { k: "GitHub", v: "github.com/zaidsidd360", href: "https://github.com/zaidsidd360" },
                   { k: "LinkedIn", v: "linkedin.com/in/zaidsidd360", href: "https://linkedin.com/in/zaidsidd360" },
                   { k: "X", v: "x.com/zaidsidd360", href: "https://x.com/zaidsidd360" },

@@ -5,7 +5,7 @@ import Providers from "@/components/Providers";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zaidsiddiqui.dev";
 const title = "Md Zaid Siddiqui · Software Engineer";
 const description =
-  "Md Zaid Siddiqui is a software engineer building APIs, search infrastructure, and AI pipelines at scale. Currently at Vujis and building Antymo.";
+  "Md Zaid Siddiqui is a software engineer building APIs, search infrastructure, and AI pipelines at scale. Currently at Vujis.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     "OpenSearch",
     "search infrastructure",
     "AI pipelines",
-    "Antymo",
     "Hyderabad",
     "portfolio",
   ],
@@ -93,7 +92,7 @@ const personJsonLd = {
   url: siteUrl,
   image: `${siteUrl}/og.png`,
   jobTitle: "Software Engineer",
-  email: "mailto:zaidsidd360@gmail.com",
+  email: "mailto:hi@zaidsiddiqui.dev",
   worksFor: {
     "@type": "Organization",
     name: "Vujis",

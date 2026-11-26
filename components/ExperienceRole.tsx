@@ -21,7 +21,7 @@ function withMetrics(text: string): ReactNode {
 function SubList({ label, items }: { label: string; items: string[] }) {
   return (
     <div className="mt-5">
-      <span className="label">{label}</span>
+      <span className="heading">{label}</span>
       <ul className="mt-2.5 space-y-2.5">
         {items.map((item, i) => (
           <li
@@ -70,7 +70,7 @@ export function ExperienceRole({
       ) : (
         <>
           <div>
-            <span className="label">What I owned</span>
+            <span className="heading">What I owned</span>
             <p className="mt-2.5 max-w-[640px] text-[15px] font-light leading-[1.7] text-fg-muted">
               {withMetrics(job.owned)}
             </p>

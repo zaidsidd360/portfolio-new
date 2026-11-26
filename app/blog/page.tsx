@@ -34,7 +34,7 @@ export default function BlogIndex() {
       <Navbar />
       <main className="min-h-screen pt-32 pb-24">
         <div className="container">
-          <span className="label">Blog</span>
+          <span className="heading">Blog</span>
           <h1 className="mb-12 mt-3 max-w-[760px] text-[clamp(30px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.03em] text-fg">
             Notes on what I build, and what breaks along the way.
           </h1>

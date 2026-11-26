@@ -100,6 +100,25 @@
     white-space: nowrap;
   }
 
+  /* Section heading: sentence case, muted so it sits back */
+  .heading {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    color: var(--fg-muted);
+  }
+
+  /* Homepage section title: a full sentence, muted so it sits back */
+  .section-title {
+    font-size: clamp(26px, 3.6vw, 36px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--fg-muted);
+    max-width: 22em;
+  }
+
   /* Section label */
   .label {
     font-size: 11px;
@@ -133,7 +152,7 @@
 
 /* Tech stack grid with inner lines that fade toward the edges.
    Lines live on a ::before layer behind the icons and are masked, so the
-   icons themselves stay fully crisp — only the grid lines fade out. */
+   icons themselves stay fully crisp; only the grid lines fade out. */
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -146,15 +165,18 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  /* Outer frame is a real border so the corners can round; inner lines sit on each cell's right/bottom edge. */
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background-origin: border-box;
   background-image:
-    repeating-linear-gradient(to right, var(--border) 0, var(--border) 1px, transparent 1px, transparent calc(100% / 5)),
-    repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 1px, transparent 1px, transparent 96px);
-  /* The gradients draw a line on the left/top edge but not the right/bottom;
-     match them so all four edges are balanced and fade symmetrically. */
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 38%, transparent 78%);
-          mask-image: radial-gradient(ellipse at center, #000 38%, transparent 78%);
+    repeating-linear-gradient(to right, transparent 0, transparent calc(100% / 5 - 1px), var(--border) calc(100% / 5 - 1px), var(--border) calc(100% / 5)),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 95px, var(--border) 95px, var(--border) 96px);
+  /* Crisp on the left so the grid lines up with the heading; fade right and down only. */
+  -webkit-mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, #000 55%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, #000 55%, transparent 100%);
+          mask-composite: intersect;
 }
 .stack-grid > .stack-item {
   position: relative;
@@ -164,8 +186,8 @@
   .stack-grid { grid-template-columns: repeat(3, 1fr); }
   .stack-grid::before {
     background-image:
-      repeating-linear-gradient(to right, var(--border) 0, var(--border) 1px, transparent 1px, transparent calc(100% / 3)),
-      repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 1px, transparent 1px, transparent 96px);
+      repeating-linear-gradient(to right, transparent 0, transparent calc(100% / 3 - 1px), var(--border) calc(100% / 3 - 1px), var(--border) calc(100% / 3)),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 95px, var(--border) 95px, var(--border) 96px);
   }
 }
 
@@ -281,3 +303,13 @@
 .hljs-attribute, .hljs-property { color: #fbbf24; }
 .hljs-symbol, .hljs-bullet, .hljs-link { color: #f472b6; }
 .hljs-deletion { color: #f87171; }
+
+/* Contact: underline draws on hover */
+.contact-email,
+.contact-link {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.15s;
+}
+.contact-email { background-size: 0 2px; padding-bottom: 4px; }
+.contact-email:hover { background-size: 100% 2px; }
+.contact-link:hover { background-size: 100% 1px; }

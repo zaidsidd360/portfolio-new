@@ -32,8 +32,8 @@ export default function Experience() {
       <div className="container">
         <div className="divider mb-16" />
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[120px_1fr] sm:gap-16">
-          <span className="exp-reveal label pt-1 font-bold">Experience</span>
+        <div className="flex flex-col gap-10">
+          <h2 className="exp-reveal section-title">Where I&apos;ve shipped.</h2>
 
           <div>
             {EXPERIENCE.map((job) => (

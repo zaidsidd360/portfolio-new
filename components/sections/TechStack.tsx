@@ -26,7 +26,7 @@ const STACK = [
 	{ name: "git", label: "Git" },
 	{ name: "github", label: "GitHub" },
 	{ name: "postman", label: "Postman" },
-	{ name: "arc", label: "Arc" },
+	{ name: "arc", label: "Arc (RIP love)" },
 	{ name: "cursor", label: "Cursor" },
 	{ name: "claude", label: "Claude" },
 ];
@@ -62,13 +62,10 @@ export default function TechStack() {
 			<div className="container">
 				<div className="divider mb-16" />
 
-				<div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-8 sm:gap-16 items-start">
-					<span
-						className="label font-bold"
-						style={{ color: "var(--fg-muted)", paddingTop: "6px" }}
-					>
-						Stack
-					</span>
+				<div className="flex flex-col gap-10">
+					<h2 className="section-title">
+						What I build with.
+					</h2>
 
 					<div className="stack-grid">
 						{STACK.map((tech) => (

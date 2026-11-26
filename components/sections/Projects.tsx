@@ -6,7 +6,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PROJECTS = [
+type OssProject = {
+  name: string;
+  year: string;
+  desc: string;
+  tags: string[];
+  npm?: string;
+  github?: string;
+  live?: string;
+};
+
+const PROJECTS: OssProject[] = [
   {
     name: "react-terminal",
     year: "2024",
@@ -14,13 +24,6 @@ const PROJECTS = [
     tags: ["React", "TypeScript", "Open Source"],
     npm: "https://www.npmjs.com/package/@zqui/react-terminal",
     github: "https://github.com/zaidsidd360/react-terminal",
-  },
-  {
-    name: "Live Polling System",
-    year: "2024",
-    desc: "Real-time classroom polling for 100+ concurrent users. Sub-200ms latency via Socket.io, teacher dashboard with analytics, MongoDB indexed for 10k+ responses.",
-    tags: ["React", "Socket.io", "Node.js", "MongoDB"],
-    live: "#",
   },
 ];
 
@@ -46,8 +49,8 @@ export default function Projects() {
       <div className="container">
         <div className="divider mb-16" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-8 sm:gap-16">
-          <span className="proj-reveal label pt-1 font-bold">Projects</span>
+        <div className="flex flex-col gap-10">
+          <h2 className="proj-reveal section-title">Shipped in the open.</h2>
 
           <div className="space-y-12">
             {PROJECTS.map((p) => (

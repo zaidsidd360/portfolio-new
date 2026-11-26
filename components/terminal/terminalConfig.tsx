@@ -80,11 +80,7 @@ function Whoami(): ReactElement {
         <a style={link} href="https://vujis.com" target="_blank" rel="noopener noreferrer">
           Vujis
         </a>
-        , shipping{" "}
-        <a style={link} href="https://antymo.com" target="_blank" rel="noopener noreferrer">
-          Antymo
-        </a>{" "}
-        on the side.
+        .
       </div>
     </Block>
   );
@@ -147,10 +143,9 @@ function Experience(): ReactElement {
 
 function Contact(): ReactElement {
   const rows: [string, string, string][] = [
-    ["email", "zaidsidd360@gmail.com", "mailto:zaidsidd360@gmail.com"],
+    ["email", "hi@zaidsiddiqui.dev", "mailto:hi@zaidsiddiqui.dev"],
     ["github", "github.com/zaidsidd360", "https://github.com/zaidsidd360"],
     ["linkedin", "linkedin.com/in/zaidsidd360", "https://linkedin.com/in/zaidsidd360"],
-    ["building", "antymo.com", "https://antymo.com"],
   ];
   return (
     <Block>
