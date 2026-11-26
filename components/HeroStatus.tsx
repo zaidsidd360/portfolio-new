@@ -57,9 +57,9 @@ export default function HeroStatus({
 	}, []);
 
 	return (
-		<div className="flex min-h-[22px] items-center gap-2.5 text-[15px] text-fg-muted">
+		<div className="flex min-h-6 items-start gap-2.5 text-[15px] leading-6 text-fg-muted">
 			<span
-				className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"
+				className="mt-[9px] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"
 				aria-hidden
 			/>
 			{mode === "dare" && (
@@ -83,7 +83,8 @@ export default function HeroStatus({
 			)}
 			{mode === "clock" && now && (
 				<span>
-					<span className="text-fg">{now.time}</span> in Hyderabad.{" "}
+					<span className="text-fg">{now.time}</span>
+					<span aria-hidden> · </span>
 					{now.status}
 				</span>
 			)}
