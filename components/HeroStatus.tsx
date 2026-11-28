@@ -18,19 +18,38 @@ const STATUS_BY_SLOT = [
 	"Shipping things I shouldn't at this hour.", // 10 pm to 12 am
 ];
 
+// Saturday and Sunday, same 2-hour blocks.
+const WEEKEND_STATUS_BY_SLOT = [
+	"Asleep, or pretending to be.", // 12 to 2 am
+	"Asleep. Unless prod is down.", // 2 to 4 am
+	"Fully asleep. Leave a message.", // 4 to 6 am
+	"Weekend. No alarm set.", // 6 to 8 am
+	"Still in bed. It's the weekend.", // 8 to 10 am
+	"Slow breakfast. No standups today.", // 10 am to 12 pm
+	"Lunch, then maybe a side project.", // 12 to 2 pm
+	"Building something nobody asked for.", // 2 to 4 pm
+	"Out. Touching grass, allegedly.", // 4 to 6 pm
+	"Weekend evening. Let me chill.", // 6 to 8 pm
+	"Watching Silicon Valley, probably.", // 8 to 10 pm
+	"Shipping things I shouldn't at this hour.", // 10 pm to 12 am
+];
+
 function hyderabadNow() {
 	const parts = new Intl.DateTimeFormat("en-US", {
 		timeZone: "Asia/Kolkata",
+		weekday: "short",
 		hour: "numeric",
 		minute: "2-digit",
 		hourCycle: "h23",
 	}).formatToParts(new Date());
+	const weekday = parts.find((p) => p.type === "weekday")?.value;
+	const isWeekend = weekday === "Sat" || weekday === "Sun";
 	const hour = Number(parts.find((p) => p.type === "hour")?.value ?? 0);
 	const minute = parts.find((p) => p.type === "minute")?.value ?? "00";
 	const h12 = hour % 12 === 0 ? 12 : hour % 12;
 	return {
 		time: `${h12}:${minute} ${hour < 12 ? "am" : "pm"}`,
-		status: STATUS_BY_SLOT[Math.floor(hour / 2)],
+		status: (isWeekend ? WEEKEND_STATUS_BY_SLOT : STATUS_BY_SLOT)[Math.floor(hour / 2)],
 	};
 }
 
